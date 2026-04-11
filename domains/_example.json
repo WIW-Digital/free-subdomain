@@ -6,6 +6,7 @@
   },
   "record": {
     "A": ["203.0.113.42"],
-    "TXT": ["v=spf1 include:example.com ~all"]
+    "TXT": ["v=spf1 include:example.com ~all"],
+    "proxied": false
   }
 }

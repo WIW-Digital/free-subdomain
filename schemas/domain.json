@@ -92,6 +92,11 @@
           },
           "minItems": 1,
           "uniqueItems": true
+        },
+        "proxied": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable Cloudflare proxy (orange cloud) for A, AAAA, and CNAME records. Defaults to false."
         }
       },
       "not": {

@@ -95,6 +95,7 @@ SUPPORTED_TYPES = {"A", "AAAA", "CNAME", "TXT", "MX", "NS"}
 def desired_records(name: str, record_block: dict) -> list[dict]:
     """Convert the JSON record block to a flat list of Cloudflare record dicts."""
     records = []
+    proxied = bool(record_block.get("proxied", False))
 
     for rtype in ("A", "AAAA"):
         for ip in record_block.get(rtype, []):
@@ -104,7 +105,7 @@ def desired_records(name: str, record_block: dict) -> list[dict]:
                     "name": name,
                     "content": ip,
                     "ttl": 1,  # 1 = automatic
-                    "proxied": False,
+                    "proxied": proxied,
                 }
             )
 
@@ -118,7 +119,7 @@ def desired_records(name: str, record_block: dict) -> list[dict]:
                 "name": name,
                 "content": target.rstrip("."),
                 "ttl": 1,
-                "proxied": False,
+                "proxied": proxied,
             }
         )
 
