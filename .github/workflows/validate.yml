@@ -1,0 +1,47 @@
+name: Validate Domain Files
+
+on:
+  pull_request:
+    paths:
+      - "domains/**"
+      - "schemas/**"
+      - "scripts/validate.py"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    name: Validate subdomain JSON files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Determine changed domain files
+        id: changed
+        uses: tj-actions/changed-files@v44
+        with:
+          files: "domains/*.json"
+
+      - name: Validate changed files
+        run: |
+          if [ -n "${{ steps.changed.outputs.all_changed_files }}" ]; then
+            python scripts/validate.py ${{ steps.changed.outputs.all_changed_files }}
+          else
+            echo "No domain files changed."
+          fi
+
+      - name: Validate all domain files (full suite)
+        run: python scripts/validate.py
