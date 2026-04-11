@@ -5,7 +5,7 @@
     "email": "gebe@wih.my.id"
   },
   "record": {
-    "A": ["45.64.97.109"]
+    "A": ["45.64.97.109"],
     "proxied": true
   }
 }
