@@ -1,0 +1,10 @@
+{
+  "description": "An example subdomain registration. Copy this file, rename it to <your-subdomain>.json, and open a pull request.",
+  "owner": {
+    "username": "gebrann",
+    "email": "gebe@wih.my.id"
+  },
+  "record": {
+    "A": ["45.64.97.109"],
+  }
+}
