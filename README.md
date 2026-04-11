@@ -74,6 +74,7 @@ Once merged your DNS record will be created within a few minutes.
 | `owner.username` | **Yes** | Your GitHub username |
 | `owner.email` | No | Contact email |
 | `record` | **Yes** | Object containing one or more DNS record types (see below) |
+| `record.proxied` | No | Enable Cloudflare proxy (orange cloud) for A, AAAA, and CNAME records. Defaults to `false`. |
 
 ---
 
@@ -135,6 +136,19 @@ You can include **one or more** of the following record types inside the `record
   "NS": ["ns1.example.com", "ns2.example.com"]
 }
 ```
+
+### Enabling Cloudflare proxy (orange cloud)
+
+To route traffic through Cloudflare's proxy (enabling DDoS protection, caching, and other Cloudflare features) set `"proxied": true` in your `record` object. This applies to A, AAAA, and CNAME records.
+
+```json
+"record": {
+  "A": ["203.0.113.42"],
+  "proxied": true
+}
+```
+
+> **Note:** When `proxied` is `true`, Cloudflare's TTL settings apply and the `ttl` field is ignored. TXT, MX, and NS records are always DNS-only and are not affected by this setting.
 
 ---
 
