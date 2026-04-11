@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Subdomain Registration",
+  "description": "Schema for a free-subdomain registration record",
+  "type": "object",
+  "required": ["owner", "record"],
+  "additionalProperties": false,
+  "properties": {
+    "description": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "owner": {
+      "type": "object",
+      "required": ["username"],
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$",
+          "description": "GitHub username of the registrant"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Optional contact email"
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "description": "DNS records for the subdomain. A and CNAME cannot both be present.",
+      "additionalProperties": false,
+      "properties": {
+        "A": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "ipv4"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "AAAA": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "ipv6"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "CNAME": {
+          "type": "string",
+          "pattern": "^(?!-)[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.?$",
+          "description": "Must be a valid hostname. Cannot be combined with A or AAAA records."
+        },
+        "TXT": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "MX": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["priority", "value"],
+            "additionalProperties": false,
+            "properties": {
+              "priority": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 65535
+              },
+              "value": {
+                "type": "string",
+                "pattern": "^(?!-)[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.?$"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "NS": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?!-)[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.?$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "not": {
+        "required": ["CNAME", "A"]
+      },
+      "allOf": [
+        {
+          "if": { "required": ["CNAME"] },
+          "then": { "not": { "required": ["AAAA"] } }
+        }
+      ]
+    }
+  }
+}

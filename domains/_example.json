@@ -1,0 +1,11 @@
+{
+  "description": "An example subdomain registration. Copy this file, rename it to <your-subdomain>.json, and open a pull request.",
+  "owner": {
+    "username": "your-github-username",
+    "email": "optional@example.com"
+  },
+  "record": {
+    "A": ["203.0.113.42"],
+    "TXT": ["v=spf1 include:example.com ~all"]
+  }
+}
