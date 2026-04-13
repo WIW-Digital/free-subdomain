@@ -2,7 +2,7 @@
 
 > **Get a free subdomain** backed by Cloudflare DNS — similar to [is-a.dev](https://is-a.dev).  
 > Simply open a pull request with a JSON file and your subdomain will be provisioned automatically.
-> You want to know where's your subdomain? It's on <your-subdomain>.wih.my.id.
+> You want to know where's your subdomain? It's on {your-subdomain}.wih.my.id.
 
 [![Validate Domain Files](https://github.com/WIW-Digital/free-subdomain/actions/workflows/validate.yml/badge.svg)](https://github.com/WIW-Digital/free-subdomain/actions/workflows/validate.yml)
 [![Sync DNS Records](https://github.com/WIW-Digital/free-subdomain/actions/workflows/sync.yml/badge.svg)](https://github.com/WIW-Digital/free-subdomain/actions/workflows/sync.yml)
