@@ -58,6 +58,7 @@ RESERVED_NAMES = {
     "localhost",
     "broadcasthost",
     "local",
+    "blog",
 }
 
 
